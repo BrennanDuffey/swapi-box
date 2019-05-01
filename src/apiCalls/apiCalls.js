@@ -6,5 +6,5 @@ export const fetchFilms = () => {
     } else {
       return response.json();
     }
-  })
-}
+  });
+};
