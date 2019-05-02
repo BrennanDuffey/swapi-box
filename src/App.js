@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Film from './Film/Film.js';
+import MyCrawlComponent from './Crawl/Crawl.js';
 import { fetchFilms } from './apiCalls/apiCalls.js';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      films: []
+      film: {}
     };
   };
 
   componentDidMount() {
     return fetchFilms()
-    .then(response => this.setState({ films: response.results}))
+    .then(response => this.setState({ film: this.grabRandom(response.results)}))
+  };
+
+  grabRandom(films) {
+    return films[Math.floor(Math.random() * films.length)]
   };
   
+
   render() {
     return (
       <div className="App">
-        <Film />
+        <MyCrawlComponent film={this.state.film}/>
       </div>
     );
   };
