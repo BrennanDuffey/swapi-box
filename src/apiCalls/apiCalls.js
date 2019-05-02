@@ -9,3 +9,14 @@ export const fetchFilms = () => {
   });
 };
 
+export const fetchPeople = () => (
+  fetch("https://swapi.co/api/people/")
+  .then(response => {
+    if (!response.ok) {
+      throw Error('Error in fetching people')
+    } else {
+      return response.json()
+    }
+  })
+)
+
