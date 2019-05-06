@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import MyCrawlComponent from './Crawl/Crawl.js';
 import CardContainer from './CardContainer/CardContainer.js';
-import { fetchFilms, fetchPeople, fetchURL } from './apiCalls/apiCalls.js';
+import { fetchFilms, fetchPeople, fetchPlanets, fetchURL } from './apiCalls/apiCalls.js';
 
 class App extends Component {
   constructor() {
@@ -26,7 +26,14 @@ class App extends Component {
     .then(people => this.getHomeworld(people))
     .then(peopleWithHomeworld => this.getSpecies(peopleWithHomeworld))
     .then(completePeople => this.setState({ people:completePeople }))
+
+    fetchPlanets()
+    .then(data => data.results)
+    .then(planets => this.getResidents(planets))
+    .then(completePlanets => this.setState({ planets: completePlanets}))
   };
+
+
 
   getHomeworld(people) {
     const unresolvedPromises = people.map(person => {
@@ -47,7 +54,26 @@ class App extends Component {
       .then(species => ({...person, species: species.name}))
     ))
     return Promise.all(unresolvedPromises)
-  }
+  };
+
+  getResidents(planets) {
+    const unresolvedPromises = planets.map(planet => {
+      const unresolvedPromises = planet.residents
+      .map(resident => (
+        fetchURL(resident)
+        .then(resident => (resident.name))
+      ));
+      return Promise.all(unresolvedPromises)
+      .then(residents => ({
+        name: planet.name,
+        terrain: planet.terrain,
+        population: planet.population,
+        climate: planet.climate,
+        residents
+      }));
+    });
+    return Promise.all(unresolvedPromises)
+  };
 
   grabRandom(films) {
     return films[Math.floor(Math.random() * films.length)]
