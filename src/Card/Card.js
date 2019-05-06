@@ -35,7 +35,6 @@ const Card = (props) => {
 
   return (
     <article className="card">
-      <button className="controls-buttons">Favorite</button>
       <h3>{props.name}</h3>
       {homeworld}
       {population}
@@ -46,6 +45,7 @@ const Card = (props) => {
       {residents}
       {terrain}
       {climate}
+      <button className="controls-buttons">Favorite</button>
     </article>
   );
 };
