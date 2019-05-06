@@ -42,7 +42,7 @@ class App extends Component {
     const newVehicles = vehicles.map(vehicle => ({
       name: vehicle.name,
       model: vehicle.model,
-      class: vehicle.vehicle_class,
+      vehicleClass: vehicle.vehicle_class,
       numOfPassengers: vehicle.passengers
     }));
     return newVehicles
@@ -100,7 +100,6 @@ class App extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    console.log(e.target.name)
     this.setState({ selected: e.target.name})
   }
   
