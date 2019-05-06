@@ -30,7 +30,7 @@ class App extends Component {
     fetchPlanets()
     .then(data => data.results)
     .then(planets => this.getPlanets(planets))
-    .then(completePlanets => this.setState({ planets: completePlanets}));
+    .then(completePlanets => this.setState({planets: completePlanets}));
 
     fetchVehicles()
     .then(data => data.results)
@@ -71,14 +71,16 @@ class App extends Component {
 
   getPlanets(planets) {
     const unresolvedPromises = planets.map(planet => {
-      this.getResidents(planet)
-      .then(residents => ({
-        name: planet.name,
-        terrain: planet.terrain,
-        population: planet.population,
-        climate: planet.climate,
-        residents
-      }));
+      return this.getResidents(planet)
+      .then(residents => (
+        {
+          name: planet.name,
+          terrain: planet.terrain,
+          population: planet.population,
+          climate: planet.climate,
+          residents: residents
+        }
+      ));
     });
     return Promise.all(unresolvedPromises)
   };
