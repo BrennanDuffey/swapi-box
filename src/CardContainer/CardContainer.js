@@ -3,7 +3,7 @@ import Card from '../Card/Card.js';
 
 const CardContainer = (props) => {
   
-  const cards = props[props.selected].map(element => (<Card {...element}/>))
+  const cards = props[props.selected].map(card => (<Card {...card}/>))
   return (
     <section>
       {cards}

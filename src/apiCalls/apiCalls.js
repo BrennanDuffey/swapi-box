@@ -29,7 +29,18 @@ export const fetchPlanets = () => (
       return response.json()
     };
   })
-)
+);
+
+export const fetchVehicles = () => (
+  fetch("https://swapi.co/api/vehicles/")
+  .then(response => {
+    if (!response.ok) {
+      throw Error('Error in fetching vehicles')
+    } else {
+      return response.json()
+    };
+  })
+);
 
 export const fetchURL = (url) => {
   return fetch(url)
@@ -41,4 +52,6 @@ export const fetchURL = (url) => {
     };
   })
 };
+
+
 

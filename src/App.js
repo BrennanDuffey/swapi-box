@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import MyCrawlComponent from './Crawl/Crawl.js';
 import CardContainer from './CardContainer/CardContainer.js';
-import { fetchFilms, fetchPeople, fetchPlanets, fetchURL } from './apiCalls/apiCalls.js';
+import { fetchFilms, fetchPeople, fetchPlanets, fetchVehicles, fetchURL } from './apiCalls/apiCalls.js';
 
 class App extends Component {
   constructor() {
@@ -19,21 +19,34 @@ class App extends Component {
 
   componentDidMount() {
     fetchFilms()
-    .then(films => this.setState({ film: this.grabRandom(films.results)}))
+    .then(films => this.setState({ film: this.grabRandom(films.results)}));
 
     fetchPeople()
     .then(data => data.results)
     .then(people => this.getHomeworld(people))
     .then(peopleWithHomeworld => this.getSpecies(peopleWithHomeworld))
-    .then(completePeople => this.setState({ people:completePeople }))
+    .then(completePeople => this.setState({ people:completePeople }));
 
     fetchPlanets()
     .then(data => data.results)
-    .then(planets => this.getResidents(planets))
-    .then(completePlanets => this.setState({ planets: completePlanets}))
+    .then(planets => this.getPlanets(planets))
+    .then(completePlanets => this.setState({ planets: completePlanets}));
+
+    fetchVehicles()
+    .then(data => data.results)
+    .then(vehicles => this.getVehicles(vehicles))
+    .then(newVehicles => this.setState({vehicles: newVehicles}));
   };
 
-
+  getVehicles(vehicles) {
+    const newVehicles = vehicles.map(vehicle => ({
+      name: vehicle.name,
+      model: vehicle.model,
+      class: vehicle.vehicle_class,
+      numOfPassengers: vehicle.passengers
+    }));
+    return newVehicles
+  };
 
   getHomeworld(people) {
     const unresolvedPromises = people.map(person => {
@@ -56,14 +69,9 @@ class App extends Component {
     return Promise.all(unresolvedPromises)
   };
 
-  getResidents(planets) {
+  getPlanets(planets) {
     const unresolvedPromises = planets.map(planet => {
-      const unresolvedPromises = planet.residents
-      .map(resident => (
-        fetchURL(resident)
-        .then(resident => (resident.name))
-      ));
-      return Promise.all(unresolvedPromises)
+      this.getResidents(planet)
       .then(residents => ({
         name: planet.name,
         terrain: planet.terrain,
@@ -74,6 +82,15 @@ class App extends Component {
     });
     return Promise.all(unresolvedPromises)
   };
+
+  getResidents(planet) {
+    const unresolvedPromises = planet.residents
+      .map(resident => (
+        fetchURL(resident)
+        .then(resident => (resident.name))
+      ));
+    return Promise.all(unresolvedPromises)
+  }
 
   grabRandom(films) {
     return films[Math.floor(Math.random() * films.length)]
