@@ -1,33 +1,28 @@
-.App {
-  text-align: center;
+.controls-buttons {
+  background-color: black;
+  border: none;
+  color: #ffd700;
+  font-family: Iceland;
+  font-size: 2em;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.controls-buttons:hover {
+  animation: neon 1.5s ease-in-out infinite alternate;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
+  background-color: black;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
+  padding: 50px;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
+@keyframes neon {
   from {
-    transform: rotate(0deg);
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffd700, 0 0 70px #ffd700, 0 0 80px #ffd700, 0 0 100px #ffd700, 0 0 150px #ffd700;
   }
   to {
-    transform: rotate(360deg);
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ffd700, 0 0 35px #ffd700, 0 0 40px #ffd700, 0 0 50px #ffd700, 0 0 75px #ffd700;
   }
 }

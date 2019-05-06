@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MyCrawlComponent from './Crawl/Crawl.js';
 import CardContainer from './CardContainer/CardContainer.js';
@@ -30,7 +29,7 @@ class App extends Component {
     fetchPlanets()
     .then(data => data.results)
     .then(planets => this.getPlanets(planets))
-    .then(completePlanets => this.setState({ planets: completePlanets}));
+    .then(completePlanets => this.setState({planets: completePlanets}));
 
     fetchVehicles()
     .then(data => data.results)
@@ -42,7 +41,7 @@ class App extends Component {
     const newVehicles = vehicles.map(vehicle => ({
       name: vehicle.name,
       model: vehicle.model,
-      class: vehicle.vehicle_class,
+      vehicleClass: vehicle.vehicle_class,
       numOfPassengers: vehicle.passengers
     }));
     return newVehicles
@@ -71,14 +70,16 @@ class App extends Component {
 
   getPlanets(planets) {
     const unresolvedPromises = planets.map(planet => {
-      this.getResidents(planet)
-      .then(residents => ({
-        name: planet.name,
-        terrain: planet.terrain,
-        population: planet.population,
-        climate: planet.climate,
-        residents
-      }));
+      return this.getResidents(planet)
+      .then(residents => (
+        {
+          name: planet.name,
+          terrain: planet.terrain,
+          population: planet.population,
+          climate: planet.climate,
+          residents: residents
+        }
+      ));
     });
     return Promise.all(unresolvedPromises)
   };
@@ -98,7 +99,6 @@ class App extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    console.log(e.target.name)
     this.setState({ selected: e.target.name})
   }
   
@@ -112,11 +112,11 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <aside className="side-bar"> 
-          <button name="people" onClick={this.handleClick}>People</button>
-          <button name="planets" onClick={this.handleClick}>Planets</button>
-          <button name="vehicles" onClick={this.handleClick}>Vehicles</button>
-        </aside>
+        <header className="header"> 
+          <button className="controls-buttons" name="people" onClick={this.handleClick}>People</button>
+          <button className="controls-buttons" name="planets" onClick={this.handleClick}>Planets</button>
+          <button className="controls-buttons" name="vehicles" onClick={this.handleClick}>Vehicles</button>
+        </header>
         {display}
       </div>
     );
