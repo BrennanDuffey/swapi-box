@@ -1,4 +1,6 @@
 import React from 'react';
+import './Card.css';
+
 
 const Card = (props) => {
 
@@ -32,8 +34,8 @@ const Card = (props) => {
   }
 
   return (
-    <article>
-      <button>Favorite</button>
+    <article className="card">
+      <button className="controls-buttons">Favorite</button>
       <h3>{props.name}</h3>
       {homeworld}
       {population}

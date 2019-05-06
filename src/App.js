@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MyCrawlComponent from './Crawl/Crawl.js';
 import CardContainer from './CardContainer/CardContainer.js';
@@ -113,11 +112,11 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <aside className="side-bar"> 
-          <button name="people" onClick={this.handleClick}>People</button>
-          <button name="planets" onClick={this.handleClick}>Planets</button>
-          <button name="vehicles" onClick={this.handleClick}>Vehicles</button>
-        </aside>
+        <header className="header"> 
+          <button className="controls-buttons" name="people" onClick={this.handleClick}>People</button>
+          <button className="controls-buttons" name="planets" onClick={this.handleClick}>Planets</button>
+          <button className="controls-buttons" name="vehicles" onClick={this.handleClick}>Vehicles</button>
+        </header>
         {display}
       </div>
     );
