@@ -8,7 +8,7 @@ const Card = (props) => {
   if (props.selected === "planets") {
     if (props.residents.length) {
       let lastResident = props.residents.pop();
-      let residentString = props.residents.join(", ") + " and " + lastResident
+      let residentString = props.residents.join(", ") + ", and " + lastResident
       residents = <p>Residents: {residentString}</p>
     }
   }
