@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import MyCrawlComponent from './Crawl/Crawl.js';
-import CardContainer from './CardContainer/CardContainer.js';
-import { fetchFilms, fetchPeople, fetchPlanets, fetchVehicles, fetchURL } from './apiCalls/apiCalls.js';
+import MyCrawlComponent from '../Crawl/Crawl.js';
+import CardContainer from '../CardContainer/CardContainer.js';
+import { fetchFilms, fetchPeople, fetchPlanets, fetchVehicles, fetchURL } from '../../apiCalls/apiCalls.js';
 
 class App extends Component {
   constructor() {
